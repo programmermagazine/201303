@@ -1,0 +1,178 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  line-height:160%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 700;
+  color:#222222;
+}
+
+h1 {
+  font-size: 36px;
+  font-family: '標楷體', 'Times New Roman';
+}
+
+h2 {
+  font-size: 28px;
+  font-family: '標楷體', 'Times New Roman';
+}
+
+h3 {
+  font-size: 24px;
+  font-family: '標楷體', 'Times New Roman';
+}
+
+h4 {
+  font-size: 21px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+p {
+  margin: 10px 0 15px 0;
+}
+
+footer p {
+  color: #f2f2f2;
+}
+
+a {
+  text-decoration: none;
+  color: #007edf;
+  text-shadow: none;
+
+  transition: color 0.5s ease;
+  transition: text-shadow 0.5s ease;
+  -webkit-transition: color 0.5s ease;
+  -webkit-transition: text-shadow 0.5s ease;
+  -moz-transition: color 0.5s ease;
+  -moz-transition: text-shadow 0.5s ease;
+  -o-transition: color 0.5s ease;
+  -o-transition: text-shadow 0.5s ease;
+  -ms-transition: color 0.5s ease;
+  -ms-transition: text-shadow 0.5s ease;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #373737;
+  margin-bottom: 20px;
+  text-align: left;
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+th {
+	padding: 10px;
+	background-color:black;
+	color:white;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #373737;
+}
+ 
+em {
+  font-weight:bold;
+}
+
+#header_wrap {
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  background-color:black;
+  color:white;
+}
+
+#header_wrap  h1, h1 sub {
+  color:white;
+}
+
+h2 {
+  text-align:center;
+  color:black;
+}
+
+#header_wrap  sub {
+  color:white;
+  font-size:60%;
+}
+
+.title {
+  color:#333333;
+  text-align:center;
+  font-size:24px;
+  font-family: '標楷體', 'Times New Roman';
+}
+
+.author, .date {
+  color:#333333;
+  text-align:center;
+  font-size:12px;
+  font-family: '細明體', 'Times New Roman';
+}
+
+#content {
+  margin:10px;
+  padding:10px;
+}
+
+pre {
+  background-color:#dddddd;
+  color:#333333;
+  width:100%;
+}
+
+.figure {
+  width:800px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/*
+.figure {
+  FLOAT: right; MARGIN: 15PX;
+}
+*/
+.caption {
+  text-align:center;
+}
+
+#TOC {
+}
+
+#footer {
+  text-align:center;
+  font-size:12px;
+  color:#666666;
+  margin: 10px;
+  padding: 10px;
+}

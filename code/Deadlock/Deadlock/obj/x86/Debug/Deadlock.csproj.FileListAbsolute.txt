@@ -1,0 +1,5 @@
+D:\Dropbox\Public\pmag\201303\code\Deadlock\Deadlock\bin\Debug\Deadlock.exe
+D:\Dropbox\Public\pmag\201303\code\Deadlock\Deadlock\bin\Debug\Deadlock.pdb
+D:\Dropbox\Public\pmag\201303\code\Deadlock\Deadlock\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Dropbox\Public\pmag\201303\code\Deadlock\Deadlock\obj\x86\Debug\Deadlock.exe
+D:\Dropbox\Public\pmag\201303\code\Deadlock\Deadlock\obj\x86\Debug\Deadlock.pdb

@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  2013 年 3 月號 (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<h2 id="r-統計軟體1-簡介與基本操作-作者陳鍾誠">R 統計軟體：(1) 簡介與基本操作 – (作者：陳鍾誠)</h2>
+<h3 id="簡介">簡介</h3>
+<p>R 軟體是專門為了機率統計而設計的一種開放原始碼軟體，是免費的自由軟體。</p>
+<p>市面上有許多與 R 類似的商用軟體，像是 SPSS, SAS, MINITAB, S-PLUS 等，但是這些軟體是要花錢買的。</p>
+<p>R 軟體所使用的程式語言，被稱為 R 語言。</p>
+<p>R 語言 與 S-PLUS 所使用的語言很類似，兩者都衍生自貝爾實驗室 Rick Becker, Allan Wilks, John Chambers 所創造的 S 語言，R 語言基本上是 GNU 所實作的 S 語言版本。</p>
+<p>筆者篆寫此文時，R 所採用的 S 語言演化到了第四版，因此稱為 S4。</p>
+<h3 id="安裝">安裝</h3>
+<p>R 軟體的官方網站為 <a href="http://www.r-project.org/"><code class="url">http://www.r-project.org/</code></a>，其中有個相當重要的子網站稱為 CRAN (Comprehensive R Archive Network)，其網址為 <a href="http://cran.r-project.org/"><code class="url">http://cran.r-project.org/</code></a>，您可以從這個網站中下載 R 軟體。</p>
+<p>舉例而言，筆者使用的是 Windows作業系統，因此可以從以下網址下載到最新版的 R 軟體。</p>
+<ul>
+<li><a href="http://cran.r-project.org/bin/windows/base/"><code class="url">http://cran.r-project.org/bin/windows/base/</code></a></li>
+</ul>
+<div class="figure">
+<img src="../img/R_download_page.jpg" alt="R 軟體下載頁面" /><p class="caption">R 軟體下載頁面</p>
+</div>
+<p>舉例而言，筆者點選時為 Download R 2.15.2 for Windows 這個連結， 這會下載位於下列網址的檔案：</p>
+<ul>
+<li><a href="http://cran.r-project.org/bin/windows/base/R-2.15.2-win.exe"><code class="url">http://cran.r-project.org/bin/windows/base/R-2.15.2-win.exe</code></a></li>
+</ul>
+<p>下載完畢後，請啟動該安裝檔，然後不斷按「下一步」就可以完成安裝了，過程非常簡單。</p>
+<p>以下網址中的 Youtube 影片介紹了 R 軟體的下載、安裝、套件、網站、電子書等等，有興趣的朋友可以看看。</p>
+<ul>
+<li><a href="http://www.youtube.com/watch?v=AipnE4s8sKk"><code class="url">http://www.youtube.com/watch?v=AipnE4s8sKk</code></a></li>
+</ul>
+<h3 id="基本操作">基本操作</h3>
+<p>為了說明 R 軟體的用法，並用以學習機率統計的概念，本系列文章將運用 R 來說明機率統計的理論，讓程式人可以透過實作學會機率統計，並且學會 R 軟體中的 S 語言。</p>
+<p>為了避免太過枯燥，我們將不會先介紹 R 的基本語法，而是先用一系列的操作，讓讀者體會 R 的能力，然後再慢慢回到語言的教學上面。</p>
+<p>以下是筆者用 R 軟體取樣後會出樣本統計圖的畫面，簡單的幾個指令就可以得到統計結果，是不是很棒呢？</p>
+<div class="figure">
+<img src="../img/R_run.jpg" alt="圖、R 軟體執行畫面" /><p class="caption">圖、R 軟體執行畫面</p>
+</div>
+<p>第一個指令 <code>?rnorm</code> 是要求 R 軟體查詢 rnorm 這個指令，R 軟體會顯示以下的說明網頁，您可以看到 rnorm 指令是與常態分部 (The Normal Distribution) 有關的。</p>
+<div class="figure">
+<img src="../img/R_run.jpg" alt="圖、R 軟體的說明網頁" /><p class="caption">圖、R 軟體的說明網頁</p>
+</div>
+<p>在 R 軟體中，對於任何一個機率分布 xxxx，都會實作出以 d, p, q, r 為字首的四種函數，例如對於常態分布 Normal Distribution (簡寫為 norm) 而言，就有 dnorm, pnorm, qnorm, rnorm 等四個函數，功能分別如下所示：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">函數</th>
+<th align="left">說明</th>
+<th align="left">語法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">dnorm</td>
+<td align="left">常態分布的機密度函數</td>
+<td align="left">dnorm(x, mean = 0, sd = 1, log = FALSE)</td>
+</tr>
+<tr class="even">
+<td align="left">pnorm</td>
+<td align="left">常態分布的機分布函數</td>
+<td align="left">pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)</td>
+</tr>
+<tr class="odd">
+<td align="left">qnorm</td>
+<td align="left">常態分布的分位數函數</td>
+<td align="left">qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)</td>
+</tr>
+<tr class="even">
+<td align="left">rnorm</td>
+<td align="left">常態分布隨機樣本函數</td>
+<td align="left">rnorm(n, mean = 0, sd = 1)</td>
+</tr>
+</tbody>
+</table>
+<p>上表中的 mean 代表平均數，sd 代表 Standard Deviation (標準差)，n 是隨機產生的樣本個數，x 是隨機變數值，q 是累積值，p 是機率值，n 則是產生的樣本數。</p>
+<p>您可以發現函數中，有些參數後面有 = 的指定 (像是 mean=0, sd=1, log=FALSE, ….)，有些卻沒有 (像是 x, q, p, n) 等，這些指定代表預設值，也就是如果您不指定這些參數的値，那麼將會自動代入預設值。</p>
+<p>所以 <code>rnorm(100)</code> 代表 <code>rnorm(100, mean = 0, sd = 1)</code> 的意思，也就是該函數會產生平均數為 mean=0，標準差為 sd=1 的隨機樣本共 100 個。</p>
+<p>關於這些函數的更詳細的說明如下表所示。</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">字首</th>
+<th align="left">函數意義</th>
+<th align="left">範例</th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">d</td>
+<td align="left">機率密度函數</td>
+<td align="left">dnorm(1.96)</td>
+<td align="left">P(X=x)</td>
+</tr>
+<tr class="even">
+<td align="left">p</td>
+<td align="left">累積機率函數(CDF)</td>
+<td align="left">pnorm(1.96)=0.975</td>
+<td align="left">P(X≤x)</td>
+</tr>
+<tr class="odd">
+<td align="left">q</td>
+<td align="left">計算百分位數</td>
+<td align="left">qnorm(0.975)=1.96</td>
+<td align="left">q 系列為 p 系列的反函數; 所以 qnorm(pnorm(1.96)) = 1.96</td>
+</tr>
+<tr class="even">
+<td align="left">r</td>
+<td align="left">抽樣函數</td>
+<td align="left">rnorm(100)</td>
+<td align="left">傳回 100 個標準常態分布的樣本向量</td>
+</tr>
+</tbody>
+</table>
+<p>看懂這些函數之後，讓我們再度列出上圖的操作指令，仔細觀察看看每一個指令的意義。</p>
+<pre class="sourceCode R"><code class="sourceCode r">?rnorm
+
+x = <span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span><span class="dv">5</span>, <span class="dt">sd=</span><span class="dv">4</span>)
+
+<span class="kw">hist</span>(x)</code></pre>
+<p>指令 <code>x = rnorm(10000, mean=5, sd=4)</code> 代表我們要用平均值為 5, 標準差為 4 的常態分布，隨機產生 10000 個樣本，然後將這些樣本存到 x 陣列當中。</p>
+<p>指令 <code>hist(x)</code> 代表要用這些樣本畫出統計的直方圖 (Histogram)，於是就畫出了圖中的那個長條狀圖形。</p>
+<p>現在、請讀者試著看看下列操作，看看您是否能夠讀懂這些操作的意義。</p>
+<pre class="sourceCode R"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">2</span>)
+&gt; x
+ [<span class="dv">1</span>] <span class="fl">2.5810213</span> <span class="fl">0.5399127</span> <span class="fl">5.0005020</span> <span class="fl">5.3402693</span> <span class="fl">2.7900723</span> <span class="fl">3.9638088</span> <span class="fl">5.2119685</span>
+ [<span class="dv">8</span>] <span class="fl">2.2209882</span> <span class="fl">2.9935943</span> <span class="fl">7.0308419</span>
+&gt; a=<span class="kw">dnorm</span>(<span class="fl">1.96</span>)
+&gt; a
+[<span class="dv">1</span>] <span class="fl">0.05844094</span>
+&gt; b=<span class="kw">pnorm</span>(<span class="fl">1.96</span>)
+&gt; b
+[<span class="dv">1</span>] <span class="fl">0.9750021</span>
+&gt; c=<span class="kw">qnorm</span>(b)
+&gt; c
+[<span class="dv">1</span>] <span class="fl">1.96</span>
+&gt; d=<span class="kw">rnorm</span>(<span class="dv">10</span>)
+&gt; d
+ [<span class="dv">1</span>] -<span class="fl">0.32913677</span>  <span class="fl">0.77788306</span> -<span class="fl">1.80862496</span>  <span class="fl">0.16694598</span> -<span class="fl">0.65656254</span> -<span class="fl">1.76305925</span>
+ [<span class="dv">7</span>]  <span class="fl">1.18237502</span>  <span class="fl">0.19651748</span> -<span class="fl">0.07898685</span>  <span class="fl">0.73970933</span>
+&gt; </code></pre>
+<p>在下一期當中，我們將會用 R 統計軟體，示範如何進行敘述統計的操作，並說明這些操作的意義，我們下期見！</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> 2013 年 3 月號，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

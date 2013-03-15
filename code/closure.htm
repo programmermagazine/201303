@@ -1,0 +1,31 @@
+<html>
+<body>
+
+<script type="text/javascript">
+var sum = 0;
+function add(x) {
+  sum += x;
+  document.write("typeof : x="+typeof x+" y="+typeof y+" z="+typeof z+" sum="+typeof sum+"<br/>");
+  var y = 2;
+  return function() {
+    var z = sum+x+y;
+    document.write("value : x="+x+" y="+y+" z="+z+" sum="+sum+"<br/>");
+    document.write("typeof : x="+typeof x+" y="+typeof y+" z="+typeof z+" sum="+typeof sum+"<br/><br/>");
+  }
+}
+
+f = add(3);
+f();
+
+add(5)();
+
+document.write("typeof : x="+typeof x+" y="+typeof y+" z="+typeof z+" sum="+typeof sum+"<br/><br/>");
+
+</script>
+
+<script type="text/javascript">
+document.write("value  : sum="+sum+" window.sum="+window.sum);
+</script>
+
+</body>
+</html>

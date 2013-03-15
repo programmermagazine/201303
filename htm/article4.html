@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  2013 年 3 月號 (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<h2 id="從-c-看作業系統1-thread-與-deadlock-實作-作者陳鍾誠">從 C# 看作業系統：(1) Thread 與 Deadlock 實作 – (作者：陳鍾誠)</h2>
+<p>很多資工系的學生都上過作業系統這門課，但是通常老師只有講理論，沒有說明如何實作，這讓很多同學都無法清楚的理解其中的概念。在本系列文章中，我們將使用 C# 語言來說明作業系統當中的一些關鍵概念，像是 Process (進程、行程、Task)、Thread (執行緒、線程)、Deadlock (死結)、Race Condition (競爭情況)、Semaphore (號誌、信號量) 等等。</p>
+<h3 id="process-與-thread">Process 與 Thread</h3>
+<p>Thread 在台灣被稱為『執行緒』，但是在中國被稱為『線程』，作業系統教科書中通常會定義 Process 為：執行中的程式。因此假如您開了一個 Word 檔案，那就是有一個 Word 行程在執行，如果您又開了個命令列，那就是又有一個命令列行程在執行，如果又開第二個命令列，那就有兩個命令列行程在執行。</p>
+<p>Thread 在作業系統中通常被定義為輕量級行程 (Light Weight Process)，一個 Process 可以包含很多個 Thread，如下圖所示：</p>
+<div class="figure">
+<img src="../img/ProcessVsThread.jpg" alt="圖、Process 與 Thread 的關係" /><p class="caption">圖、Process 與 Thread 的關係</p>
+</div>
+<p>每個 Process 與 Thread 都會執行，而且執行到一半很可能就會因為進行輸出入或佔用 CPU 過久而被作業系統切換出去，改換另一個 Process 或 Thread 執行，這種概念稱為 Multitasking (多工)。</p>
+<p>在 Windows 當中，我們可以按下 Ctrl-Alt-Del 鍵以顯示出系統的行程資訊，而在 Linux 中則可以用 ps (Process Status) 這個指令顯示行程資訊，以下是這兩個作業系統中的行程資訊範例。</p>
+<div class="figure">
+<img src="../img/ProcessScreenshot.jpg" alt="圖、Linux 與 Windows 中的 Process" /><p class="caption">圖、Linux 與 Windows 中的 Process</p>
+</div>
+<p>Thread 交替執行的這種慨念可以用下圖表示。(Proces 也是如此，只是將圖中的 Thread 改為 Process 而已)</p>
+<div class="figure">
+<img src="../img/FileMultithreadedProcess.jpg" alt="圖、Thread 的概念" /><p class="caption">圖、Thread 的概念</p>
+</div>
+<h3 id="c-中的-thread-概念">C# 中的 Thread 概念</h3>
+<p>在現代的作業系統當中，如果我們將一個程式重複執行兩次，將會產生兩個 Process ，那麼這兩個程式將是毫不相關的。任何一個程式都不需要知道另一個程式是否存在，通常也不會與另一個程式進行溝通。</p>
+<p>但是，如果我們希望兩個程式能夠互相分享某些變數，但是卻又同時執行，此時就可以利用 Thread 的機制。對於程式設計師而言，Thread 就像一個可以單獨執行的函數，這個函數與其他程式 (包含主程式) 同時執行，感覺上好像互相獨立，但是又可以共用某些變數。以下是一個 C# 的 Thread 範例：</p>
+<pre class="sourceCode CS"><code class="sourceCode cs"><span class="kw">using</span> System;
+<span class="kw">using</span> System.<span class="fu">Threading</span>;
+
+<span class="kw">class</span> SimpleThread
+{
+    String name;
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span>(String[] args)
+    {
+        SimpleThread a = <span class="kw">new</span> <span class="fu">SimpleThread</span>(<span class="st">&quot;A&quot;</span>);
+        SimpleThread b = <span class="kw">new</span> <span class="fu">SimpleThread</span>(<span class="st">&quot;B&quot;</span>);
+        Thread athread = <span class="kw">new</span> <span class="fu">Thread</span>(<span class="kw">new</span> <span class="fu">ThreadStart</span>(a.<span class="fu">run</span>));
+        Thread bthread = <span class="kw">new</span> <span class="fu">Thread</span>(<span class="kw">new</span> <span class="fu">ThreadStart</span>(b.<span class="fu">run</span>));
+        athread.<span class="fu">Start</span>();
+        bthread.<span class="fu">Start</span>();
+        athread.<span class="fu">Join</span>();
+        bthread.<span class="fu">Join</span>();
+    }
+
+    <span class="fu">SimpleThread</span>(String pName)
+    {
+        name = pName;
+    }
+
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>()
+    {
+        <span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10</span>; i++)
+        {
+            String line = name + <span class="st">&quot;:&quot;</span> + i;
+            Console.<span class="fu">WriteLine</span>(line);
+<span class="co">//          Thread.Sleep(10);</span>
+        }
+    }
+}</code></pre>
+<p>其執行結果如下圖所示：</p>
+<div class="figure">
+<img src="../img/CSharpThreadRun1.jpg" alt="圖、Thread 的執行結果 – 沒有 Sleep 的情況" /><p class="caption">圖、Thread 的執行結果 – 沒有 Sleep 的情況</p>
+</div>
+<p>對於剛開始接觸 Thread 的程式人員而言，會感覺到相當的詭異。因為『兩個 Thread 同時執行』是一個相當難以理解的概念。事實上，對於只有一個 CPU 的程式而言，並非兩個程式真的會「同時」執行，而只不過是「交錯」執行而已。但是這個交錯方式是由作業系統決定的，而非由程式設計師自行安排。而對於多 CPU 或多核心的處理器而言，就真的會「同時」執行，而不是只有「交錯」執行而已。</p>
+<p>通常，程式人員對於這種不能由自己操控決定的情況會有不安的感覺，但是當您多寫幾個程式之後，這種疑慮就會消除了，畢竟，程式人員本來就相當依賴作業系統，只是自己通常感覺不到而已。</p>
+<p>當然，如果我們想要稍微控制一下 Thread 的執行順序，那麼就可以要求目前的 Thread 去休息睡覺，像是上述程式中的 Thread.Sleep(10) 這行程是本來是被註解掉的，但是如果我們將這行程式的註解拿掉，那麼將得到下列執行結果。</p>
+<div class="figure">
+<img src="../img/CSharpThreadRun2.jpg" alt="圖、Thread 的執行結果 2 – 有 Sleep 的情況" /><p class="caption">圖、Thread 的執行結果 2 – 有 Sleep 的情況</p>
+</div>
+<p>從上面兩個圖中，您可以看到還沒加入 Thread.Sleep(10) 之前，兩個 Thread 的交錯方是很隨興，基本上是由作業系統任意安排的，但是在加入 Thread.Sleep(10) 之後，因為兩個 Thread 在印一次後就會禮讓給對方，所以就成了嚴格交互的 A, B, A, B …. 之情形了。</p>
+<h3 id="以-c-體驗-deadlock-死結">以 C# 體驗 Deadlock 死結</h3>
+<p>在作業系統的課程當中我們會學到『死結』這個問題，當程式 1 抓住資源 A，卻又在等程式 2 釋放資源 B，而程式 2 則抓住資源 B ，卻又在等程式 1 釋放資源 A 的時候，就會進入死結狀態。這就像兩台很長的火車，互相卡住對方一般，下圖顯示了死結情況的示意圖。</p>
+<div class="figure">
+<img src="../img/Deadlock.jpg" alt="圖、死結的示意圖" /><p class="caption">圖、死結的示意圖</p>
+</div>
+<p>在程式設計中我們真的會遇到死結嗎？如果真的有死結，能否寫一個會造成死結的程式呢？</p>
+<p>這並不難，只要用執行緒 (Thread) 與鎖定 (lock) 機制，我們很容易就可以造出會導致死結的程式，以下是我們用 C# 撰寫的一段死結程式，請參考。</p>
+<pre class="sourceCode CS"><code class="sourceCode cs"><span class="kw">using</span> System;
+<span class="kw">using</span> System.<span class="fu">Threading</span>;
+<span class="kw">using</span> System.<span class="fu">Text</span>;
+
+<span class="kw">class</span> ThreadTest
+{
+    <span class="kw">static</span> StringBuilder A = <span class="kw">new</span> <span class="fu">StringBuilder</span>(<span class="st">&quot;A&quot;</span>);
+    <span class="kw">static</span> StringBuilder B = <span class="kw">new</span> <span class="fu">StringBuilder</span>(<span class="st">&quot;B&quot;</span>);
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span>(String[] args)
+    {
+        Thread thread1 = <span class="kw">new</span> <span class="fu">Thread</span>(<span class="kw">new</span> <span class="fu">ThreadStart</span>(AB));
+        Thread thread2 = <span class="kw">new</span> <span class="fu">Thread</span>(<span class="kw">new</span> <span class="fu">ThreadStart</span>(BA));
+        thread1.<span class="fu">Start</span>();
+        thread2.<span class="fu">Start</span>();
+        thread1.<span class="fu">Join</span>();
+        thread2.<span class="fu">Join</span>();
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">AB</span>()
+    {
+        <span class="kw">lock</span> (A)
+        {
+            Console.<span class="fu">WriteLine</span>(<span class="st">&quot;AB.lock(A)&quot;</span>);
+            Thread.<span class="fu">Sleep</span>(<span class="dv">1000</span>);
+            <span class="kw">lock</span> (B)
+            {
+                Console.<span class="fu">WriteLine</span>(<span class="st">&quot;AB.lock(B)&quot;</span>);
+            }
+        }
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">BA</span>()
+    {
+        <span class="kw">lock</span> (B)
+        {
+            Console.<span class="fu">WriteLine</span>(<span class="st">&quot;BA.lock(B)&quot;</span>);
+            Thread.<span class="fu">Sleep</span>(<span class="dv">1000</span>);
+            <span class="kw">lock</span> (A)
+            {
+                Console.<span class="fu">WriteLine</span>(<span class="st">&quot;BA.lock(A)&quot;</span>);
+            }
+        }
+    }
+}</code></pre>
+<p>上述程式的執行結果如下圖所示，當程式跑到 BA.lock(B) 之後就進入了死結，再也無法跑下去了，因此我們不會看到 BA.lock(A) 與 AB.lock(B) 這兩行輸出的結果，程式已經進入了死結狀態，再也出不來了。</p>
+<div class="figure">
+<img src="../img/CSharpDeadlockRun1.jpg" alt="圖、Deadlock.cs 程式的執行結果" /><p class="caption">圖、Deadlock.cs 程式的執行結果</p>
+</div>
+<p>至此，我們已經用 C# 實作了作業系統中的 Thread 與 Deadlock 這兩種慨念，以便讓讀者能透過實作真正的去感受作業系統，希望這樣的說明方式對讀者會有所幫助。</p>
+<p>在下一期當中，我們將繼續利用 C# 說明作業系統中的 Race Condition (競爭情況) 概念與利用 lock 及 Semaphore 機制避免 Race Condition 的方法，我們下期見！</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> 2013 年 3 月號，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

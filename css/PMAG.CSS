@@ -1,0 +1,220 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  line-height:160%;
+}
+
+#cover-image {
+  width:100%;
+}
+
+h1, h2, h3, h4, h5, h6, p  {
+  color:#353535;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: '標楷體', 'Times New Roman';
+  font-weight: bold;
+}
+
+blockquote {
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border: 1px solid #373737;
+  background-color: #efefef;
+}
+
+h1 { font-size: xx-large; text-align:center; margin:30px; }
+
+h2 { font-size: x-large; margin-top:30px; margin-bottom:30px; }
+
+h3 { font-size: large; }
+
+h4 { font-size: medium; }
+
+h5 { font-size: small }
+
+h6 { font-size: x-small; }
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight:bold; }
+
+h1, h1 a { color:#191970; }
+h2, h2 a { color:#050505; }
+h3, h3 a { color:#000066; }
+h4, h4 a { color:#000000; }
+h5, h5 a { color:#708090; }
+h6, h6 a { color:#﻿﻿000080; }
+
+p {
+  margin: 10px 0 15px 0;
+  font-size:100%;
+}
+
+li {
+  font-size:100%;
+}
+
+footer p {
+  color: #f2f2f2;
+}
+
+a {
+  text-decoration: none;
+  color: #007edf;
+  text-shadow: none;
+
+  transition: color 0.5s ease;
+  transition: text-shadow 0.5s ease;
+  -webkit-transition: color 0.5s ease;
+  -webkit-transition: text-shadow 0.5s ease;
+  -moz-transition: color 0.5s ease;
+  -moz-transition: text-shadow 0.5s ease;
+  -o-transition: color 0.5s ease;
+  -o-transition: text-shadow 0.5s ease;
+  -ms-transition: color 0.5s ease;
+  -ms-transition: text-shadow 0.5s ease;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #373737;
+  margin-bottom: 20px;
+  text-align: left;
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+th {
+	padding: 10px;
+	background-color:black;
+	color:white;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #373737;
+}
+ 
+em {
+  font-weight:bold;
+}
+
+#header_wrap {
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  background-color:black;
+  color:white;
+}
+
+#header_wrap  h1, h1 sub, h1 a {
+  color:white;
+}
+
+h2 {
+  color:black;
+}
+
+#header_wrap  sub {
+  color:white;
+  font-size:60%;
+}
+
+.title, .author, .date {
+  color:#333333;
+  text-align:center;
+  font-family: '標楷體', 'Times New Roman';
+}
+
+.title { font-size:xx-large;  line-height:800%; }
+
+.author { font-size:large;  line-height:300%; }
+
+.date { font-size:large;   line-height:300%; }
+
+
+#content {
+  margin:10px;
+  padding:10px;
+}
+
+pre {
+  border: 1px solid #373737;
+  background-color:#dfdfdf;
+  color:#3f3f3f;
+  font-size:medium;
+  width:95%;
+  padding:10px;
+}
+
+.figure {
+  margin:10px;
+  padding:10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.figure img {
+  border: 1px solid #373737;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.figure .caption {
+  text-align:center;
+}
+
+#TOC {
+}
+
+#footer {
+  text-align:center;
+  font-size:small;
+  color:#6f6f6f;
+  margin: 10px;
+  padding: 10px;
+}
+
+/* JavaScript Style */
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #afafaf; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+

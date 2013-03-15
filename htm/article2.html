@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  2013 年 3 月號 (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<h2 id="javascript-3-closure-與匿名函數-作者陳鍾誠">JavaScript (3) – Closure 與匿名函數 (作者：陳鍾誠)</h2>
+<p>在以下的程式中，我們同時展示了 JavaScript 當中的全域變數、區域變數與匿名函數、Closure 等機制。在本文中，我們會用這個程式逐步解釋一些 JavaScript 語言中重要但詭異的概念。</p>
+<p>很多語言都有全域變數與區域變數之分，在 JavaScript 當中看來也是如此，但事實上 JavaScript 的全域變數其實只是最外層領域的區域變數而已，在瀏覽器當中，這個最外層領域就是 window，所以以下程式中最後一部分的 sum 與 windows.sum 都同樣是 8。</p>
+<p>程式：closure.htm</p>
+<pre class="sourceCode Html"><code class="sourceCode html"><span class="kw">&lt;html&gt;</span>
+<span class="kw">&lt;body&gt;</span>
+
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span>
+<span class="kw">var</span> sum = <span class="dv">0</span>;
+<span class="kw">function</span> add(x) {
+  sum += x;
+  <span class="kw">document</span>.<span class="fu">write</span>(<span class="st">&quot;typeof</span>:<span class="st">x</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> x+<span class="st">&quot;</span> <span class="st">y</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> y+<span class="st">&quot;</span> <span class="st">z</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> z+<span class="st">&quot;</span> <span class="st">sum</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> sum+<span class="st">&quot;</span>&lt;<span class="st">br</span>/&gt;<span class="st">&quot;</span>);
+  <span class="kw">var</span> y = <span class="dv">2</span>;
+  <span class="kw">return</span> <span class="kw">function</span>() {
+    <span class="kw">var</span> z = x+y;
+    <span class="kw">document</span>.<span class="fu">write</span>(<span class="st">&quot;value</span> :<span class="st">x</span>=<span class="st">&quot;</span>+x+<span class="st">&quot;</span> <span class="st">y</span>=<span class="st">&quot;</span>+y+<span class="st">&quot;</span> <span class="st">z</span>=<span class="st">&quot;</span>+z+<span class="st">&quot;</span> <span class="st">sum</span>=<span class="st">&quot;</span>+sum+<span class="st">&quot;</span>&lt;<span class="st">br</span>/&gt;<span class="st">&quot;</span>);
+    <span class="kw">document</span>.<span class="fu">write</span>(<span class="st">&quot;typeof</span>:<span class="st">x</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> x+<span class="st">&quot;</span> <span class="st">y</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> y+<span class="st">&quot;</span> <span class="st">z</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> z+<span class="st">&quot;</span> <span class="st">sum</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> sum+<span class="st">&quot;</span>&lt;<span class="st">br</span>/&gt;&lt;<span class="st">br</span>/&gt;<span class="st">&quot;</span>);
+  }
+}
+
+f = add(<span class="dv">3</span>);
+f();
+
+add(<span class="dv">5</span>)();
+
+<span class="kw">document</span>.<span class="fu">write</span>(<span class="st">&quot;typeof</span>:<span class="st">x</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> x+<span class="st">&quot;</span> <span class="st">y</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> y+<span class="st">&quot;</span> <span class="st">z</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> z+<span class="st">&quot;</span> <span class="st">sum</span>=<span class="st">&quot;</span>+<span class="kw">typeof</span> sum+<span class="st">&quot;</span>&lt;<span class="st">br</span>/&gt;&lt;<span class="st">br</span>/&gt;<span class="st">&quot;</span>);
+
+<span class="kw">&lt;/script&gt;</span>
+
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span>
+<span class="er">document.write(&quot;sum=&quot;+sum+&quot; window.sum=&quot;+window.sum);</span>
+<span class="kw">&lt;/script&gt;</span>
+
+<span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre>
+<p>因此、JavaScript 可以說沒有全域變數的概念，全域變數的只不過是最外層物件的區域變數罷了。</p>
+<p>在 JavaScript 每一層領域當中，都可以定義區域變數，例如在上述範例中，sum 是最外層變數，因此所有的程式區段都可以存取這個變數。</p>
+<p>參數也是一種區域變數，像是 add(x) 當中的 x，也有領域慨念，其作用範圍僅適用於 add 裏面。而 add 當中所定義的區域變數 y，則只有在定義之後才會生效，因此其領域範圍是從 <code>var y=2;</code> 這行程式開始，一直到 add 函數結束為止。</p>
+<p>JavaScript 當中的函數，可以沒有名稱，這種函數稱為匿名函數，像是上述範例的函數 add 中，就傳回了一個匿名函數，如下所示：</p>
+<pre class="sourceCode JavaScript"><code class="sourceCode javascript"><span class="kw">function</span> add(x) {
+  sum += x;
+  <span class="kw">document</span>.<span class="fu">write</span>(<span class="st">&quot;typeof:x=&quot;</span>+<span class="kw">typeof</span> x+<span class="st">&quot; y=&quot;</span>+<span class="kw">typeof</span> y+<span class="st">&quot; z=&quot;</span>+<span class="kw">typeof</span> z+<span class="st">&quot; sum=&quot;</span>+<span class="kw">typeof</span> sum+<span class="st">&quot;&lt;br/&gt;&quot;</span>);
+  <span class="kw">var</span> y = <span class="dv">2</span>;
+  <span class="kw">return</span> <span class="kw">function</span>() {
+    <span class="kw">var</span> z = sum+x+y;
+    <span class="kw">document</span>.<span class="fu">write</span>(<span class="st">&quot;value :x=&quot;</span>+x+<span class="st">&quot; y=&quot;</span>+y+<span class="st">&quot; z=&quot;</span>+z+<span class="st">&quot; sum=&quot;</span>+sum+<span class="st">&quot;&lt;br/&gt;&quot;</span>);
+    <span class="kw">document</span>.<span class="fu">write</span>(<span class="st">&quot;typeof:x=&quot;</span>+<span class="kw">typeof</span> x+<span class="st">&quot; y=&quot;</span>+<span class="kw">typeof</span> y+<span class="st">&quot; z=&quot;</span>+<span class="kw">typeof</span> z+<span class="st">&quot; sum=&quot;</span>+<span class="kw">typeof</span> sum+<span class="st">&quot;&lt;br/&gt;&lt;br/&gt;&quot;</span>);
+  }
+}</code></pre>
+<p>變數 z 是該匿名函數的區域變數，由於設定為 sum+x+y，因此存取了外層的 y、x 與更外層的 sum，領域的存取規則是內層可以存取外層的變數，但是外層卻不能存取內層的變數。</p>
+<p>筆者認為，JavaScript 中的一個最特別且強大的特性，莫過於函數既可以塞給一般變數，也可以當參數傳遞。例如以下程式區段就是用 f 去接收 add(x) 函數所傳回來的匿名函數，然後再用 f() 函數去執行這個匿名函數而已。</p>
+<pre class="sourceCode JavaScript"><code class="sourceCode javascript">f = add(<span class="dv">3</span>);
+f();
+
+add(<span class="dv">5</span>)();</code></pre>
+<p>上列程式碼的最後一行 <code>add(5)()</code>，只不過是將這兩個動作合起來一起作，也就是呼叫 add(5) 後，傳回值是個匿名函數，然後再用「匿名函數()」這樣的方法呼叫函數，去執行該匿名函數而已。(這個功能有點像 C 當中的函數指標)</p>
+<p>在上述的 closure.htm 程式中，還有個很特別的地方，就是這些匿名函數被傳回來後，就已經回到了最外層的領域範圍了 (window)，那麼當該匿名函數執行時，照理說由於 x, y 屬於內層 add 函數的區域變數，應該會存取不到才對，但為何程式執行結果卻都還是正常，沒有發生錯誤呢？</p>
+<p>這牽涉到 JavaScript 當中一個非常特別的機制，稱為 Closure (閉包)。</p>
+<p>閉包與 JavaScript 的領域 (Scope) 特性有關，因為 JavaScript 採用 Lexical Scope，也就是變數作用範圍依照程式定義時的上下文 (Context) 所決定，而不是根據執行時期的上下文所決定的。</p>
+<p>因此，上述匿名函數所服從的領域規則，仍然是定義時的領域，也就是 add 函數的子領域，而不是執行時期 window 的子領域，因此仍然可以正確存取 x,y,z 等變數，不會發生錯誤。</p>
+<p>(JavaScript 的語法到此已經大致說明完畢，在下一期當中，筆者會將焦點轉移到 JavaScript 在瀏覽器中的運用上，看看 JavaScript 的實際用途，我們下期見！)</p>
+<h3 id="參考文獻">參考文獻</h3>
+<ul>
+<li>Node.js 中文電子書 » JavaScript 與 NodeJS – <a href="http://book.nodejs.tw/zh-tw/node_javascript.html#scope-closure"><code class="url">http://book.nodejs.tw/zh-tw/node_javascript.html#scope-closure</code></a></li>
+</ul>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> 2013 年 3 月號，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1>程式人雜誌 <sub> -- 2013 年 2 月號 (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<h3 id="投稿文章標題">投稿文章標題</h3>
+<h4 id="投稿文章子標題-1">投稿文章子標題 1</h4>
+<p>… 段落範例 ….</p>
+<p>段落1</p>
+<p>… 圖形範例 ….</p>
+<div class="figure">
+<img src="sample.png" alt="圖、程式人雜誌圖示" /><p class="caption">圖、程式人雜誌圖示</p>
+</div>
+<p>… 程式範例 ….</p>
+<p>段落2</p>
+<pre class="sourceCode JavaScript"><code class="sourceCode javascript"><span class="kw">var</span> http = require(<span class="ch">&#39;http&#39;</span>);
+ 
+<span class="kw">http</span>.<span class="fu">createServer</span>(<span class="kw">function</span> (request, response) {
+    <span class="kw">response</span>.<span class="fu">writeHead</span>(<span class="dv">200</span>, {<span class="ch">&#39;Content-Type&#39;</span>: <span class="ch">&#39;text/plain&#39;</span>});
+    <span class="kw">response</span>.<span class="fu">end</span>(<span class="ch">&#39;Hello World\n&#39;</span>);
+}).<span class="fu">listen</span>(<span class="dv">8000</span>);
+
+<span class="kw">console</span>.<span class="fu">log</span>(<span class="ch">&#39;Server running at http://127.0.0.1:8000/&#39;</span>);</code></pre>
+<h4 id="投稿文章子標題-2">投稿文章子標題 2</h4>
+<p>…. 表格範例 …..</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">欄位1</th>
+<th align="left">欄位2</th>
+<th align="left">欄位3</th>
+<th align="left">欄位4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">內容1</td>
+<td align="left">內容1</td>
+<td align="left">內容1</td>
+<td align="left">內容1</td>
+</tr>
+</tbody>
+</table>
+<p>內文連結範例：<a href="http://tw.yahoo.com">Yahoo奇摩</a></p>
+<p>網址連結顯示範例：<a href="http://tw.yahoo.com"><code class="url">http://tw.yahoo.com</code></a></p>
+<p>後置連結範例：<a href="http://tw.yahoo.com">Yahoo</a></p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> 2013 年 2 月號, <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/tw/ ">創作共用授權：姓名標示、非商業性、相同方式分享</a>
+</div>
+</body>
+</html>

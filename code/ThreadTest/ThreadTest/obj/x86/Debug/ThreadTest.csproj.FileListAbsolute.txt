@@ -1,0 +1,5 @@
+D:\Dropbox\Public\pmag\201303\code\ThreadTest\ThreadTest\bin\Debug\ThreadTest.exe
+D:\Dropbox\Public\pmag\201303\code\ThreadTest\ThreadTest\bin\Debug\ThreadTest.pdb
+D:\Dropbox\Public\pmag\201303\code\ThreadTest\ThreadTest\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Dropbox\Public\pmag\201303\code\ThreadTest\ThreadTest\obj\x86\Debug\ThreadTest.exe
+D:\Dropbox\Public\pmag\201303\code\ThreadTest\ThreadTest\obj\x86\Debug\ThreadTest.pdb
